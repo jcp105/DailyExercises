@@ -90,10 +90,12 @@ public:
 class Solution
 {
 public:
-    //Using hashtable/unordered_map
-    //Space Complexity -> O(n), number of n in nums
-    //Time Complexity -> O(n),  O(n*1) for loop n, lookup O(1)
-    int singleNumberHash(vector<int> &nums)
+//Using hashtable/unordered_map
+//Space Complexity -> O(n), number of n in nums
+//Time Complexity -> O(n),  O(n*1) for loop n, lookup O(1)
+#include <vector>
+#include <unordered_map>
+    int singleNumberHash(std::vector<int> &nums)
     {
 
         std::unordered_map<int, int> hash_table;
@@ -111,5 +113,34 @@ public:
         return 0;
     }
 
-    //Using Maths: 2∗(a+b+c)−(a+a+b+b+c)=c TODO
+//Using Maths: 2∗(a+b+c)−(a+a+b+b+c)=c TODO
+//Time & Space O(n)
+#include <unordered_set>
+    int singleNumberMaths(std::vector<int> &nums)
+    {
+        std::unordered_set<int> set;
+        int setSum = 0, numSum = 0;
+        for (int i : nums)
+        {
+            if (set.count(i) == 0)
+            {
+                set.insert(i);
+                setSum += i;
+            }
+            numSum += i;
+        }
+        return 2 * setSum - numSum;
+    }
+
+    //XOR magic: a ^ a = 0 , a ^ b ^ b = a
+    //Time O(n), Space O(1);
+    int singleNumberXOR(std::vector<int> &nums)
+    {
+        int solution = 0;
+        for (int i : nums)
+        {
+            solution ^= i;
+        }
+        return solution;
+    }
 };
